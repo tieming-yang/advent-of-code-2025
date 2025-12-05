@@ -1,0 +1,50 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+function getInput() {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const data = readFileSync(join(__dirname, 'input.txt'), 'utf8');
+
+  return data.trim().split("\n")
+}
+
+
+const SIZE = 100
+let zeros = 0
+let start = 50
+
+const input = getInput()
+const testInput = [
+  "L68",
+  "L30",
+  "R48",
+  "L5",
+  "R60",
+  "L55",
+  "L1",
+  "L99",
+  "R14",
+  "L82",
+]
+for (const instruction of input) {
+  let direction = instruction[0]
+  let moves = Number(instruction.slice(1))
+
+  console.log("start at the top", start)
+  console.log({instruction})
+
+  if (direction === "L") {
+    let newStart = (start - moves + SIZE) % SIZE
+    start = newStart
+  } else {
+    let newStart = (start + moves) % SIZE
+    start = newStart
+  }
+  console.log("start at the end", start)
+  if (start === 0) zeros += 1
+}
+
+
+console.log("\n|||\n|||\n|||\n|||\n|||\n|||\n|||\n|||\n|||\n\\ /\n v")
+console.log("answer:", zeros)
