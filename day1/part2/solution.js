@@ -53,3 +53,19 @@ export function getPassword(input) {
 const password = getPassword(getInput())
 // const password = getPassword(testInput)
 console.log({ password })
+console.log(-20 % 100)
+
+
+//
+
+const prev = start;
+const delta = direction === 'L' ? -moves : moves;
+
+const crosses =
+  direction === 'L'
+    ? (moves >= prev ? 1 + Math.floor((moves - prev) / SIZE) : 0)
+    : (moves >= SIZE - prev ? 1 + Math.floor((moves - (SIZE - prev)) / SIZE) : 0);
+
+start = ((prev + delta) % SIZE + SIZE) % SIZE;
+zeros += crosses;
+if (start === 0) zeros++;

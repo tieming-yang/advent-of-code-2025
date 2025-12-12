@@ -30,20 +30,18 @@ export function getPassword(input) {
   for (const instruction of input) {
     let direction = instruction[0]
     let moves = Number(instruction.slice(1))
-
-    console.log("start at the top", start)
-    console.log({ instruction })
-
     if (direction === "L") {
-      let newStart = (start - moves + SIZE) % SIZE
+      let newStart = ((start - moves ) % SIZE + SIZE) % SIZE
       start = newStart
     } else {
       let newStart = (start + moves) % SIZE
       start = newStart
     }
-    console.log("start at the end", start)
+    console.log({instruction, start})
     if (start === 0) zeros += 1
   }
 
   return zeros
 }
+
+console.log(getPassword(getInput()))
